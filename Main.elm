@@ -3,32 +3,36 @@ import Html.App as Html
 import Html.Events exposing (onClick)
 
 main =
-  Html.beginnerProgram { model = model, view = view, update = update }
+  Html.beginnerProgram { model = initialCount, view = view, update = update }
 
 -- MODEL
 type alias Model = Int
 
-model : Model
-model =
+initialCount : Model
+initialCount =
   0
 
 -- UPDATE
-type Msg = Increment | Decrement
+type Msg = Increment | Decrement | Reset
 
 update : Msg -> Model -> Model
-update msg model =
+update msg count =
   case msg of
     Increment ->
-      model + 1
+      count + 1
 
     Decrement ->
-      model - 1
+      count - 1
+
+    Reset ->
+      initialCount
 
 -- VIEW
 view : Model -> Html Msg
-view model =
+view count =
   div []
     [ button [ onClick Decrement ] [ text "-" ]
-    , div [] [ text (toString model) ]
+    , div [] [ text (toString count) ]
     , button [ onClick Increment ] [ text "+" ]
+    , button [ onClick Reset     ] [ text "Reset" ]
     ]
