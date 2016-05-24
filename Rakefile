@@ -10,6 +10,7 @@ examples = {
   'examples/Buttons.elm'    => 'build/buttons.html',
   'examples/TextFields.elm' => 'build/text_fields.html',
   'mine/RecreateTextFields1.elm' => 'build/recreate_text_fields1.html',
+  'mine/RecreateTextFields2.elm' => 'build/recreate_text_fields2.html',
 }
 
 examples.each do |infile, outfile|
