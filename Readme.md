@@ -21,6 +21,13 @@ Command Line Tools
 
 They all take a `--help` flag.
 
+Docs
+----
+
+* [core](http://package.elm-lang.org/packages/elm-lang/core/4.0.1/)
+* [html](http://package.elm-lang.org/packages/elm-lang/html/1.0.0/)
+* [community](http://package.elm-lang.org/)
+
 
 The Elm Architecture
 --------------------
@@ -130,10 +137,6 @@ $ elm make Main.elm --output=index.html
 ```sh
 $ open ./index.html
 ```
-
-
-
-
 
 
 Unclear
