@@ -21,8 +21,19 @@ Command Line Tools
 
 They all take a `--help` flag.
 
+
+The Elm Architecture
+--------------------
+
+* **Model** — the state of your application
+* **Update** — a way to update your state
+* **View** — a way to view your state as HTML
+
+
 Starting a new project
 ----------------------
+
+### New Repo
 
 Get an `elm-package.json` that installs the core elm stuff you'll need:
 
@@ -60,16 +71,74 @@ $ cat elm-package.json
 }
 ```
 
+### Install `elm-html`
+
+```sh
+$ elm package install elm-lang/html
+```
+
+### First app
+
+In the file `Main.elm`
+
+```elm
+import Html exposing (Html, button, div, text)
+import Html.App as Html
+import Html.Events exposing (onClick)
+
+main =
+  Html.beginnerProgram { model = model, view = view, update = update }
+
+-- MODEL
+type alias Model = Int
+
+model : Model
+model =
+  0
+
+-- UPDATE
+type Msg = Increment | Decrement
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Increment ->
+      model + 1
+
+    Decrement ->
+      model - 1
+
+-- VIEW
+view : Model -> Html Msg
+view model =
+  div []
+    [ button [ onClick Decrement ] [ text "-" ]
+    , div [] [ text (toString model) ]
+    , button [ onClick Increment ] [ text "+" ]
+    ]
+```
 
 
-
-
-
-
-
-
-Not sure yet:
+### Compile
 
 ```sh
 $ elm make Main.elm --output=index.html
 ```
+
+### Try it out
+
+```sh
+$ open ./index.html
+```
+
+
+
+
+
+
+Unclear
+-------
+
+* Why is there `type` and `type alias` instead of:
+  * just `type` or
+  * `type union` and `type alias`
