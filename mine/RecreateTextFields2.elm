@@ -1,11 +1,11 @@
 import Html exposing (Html, div, input, p, text)
-import Html.App
-import Html.Attributes exposing (placeholder)
+import Html.App exposing (beginnerProgram)
+import Html.Attributes exposing (placeholder, style, autofocus)
 import Html.Events exposing (onInput)
 import String exposing (reverse)
 
 main =
-  Html.App.beginnerProgram { model = initialText, update = update, view = view  }
+  beginnerProgram { model = initialText, update = update, view = view  }
 
 type alias Model = String
 type Msg = ChangeText String
@@ -22,7 +22,25 @@ update msg crntText =
 
 view : Model -> Html Msg
 view crntText =
-  div []
-      [ input [ placeholder "Text to reverse", onInput ChangeText ] []
-      , p [] [text (reverse crntText)]
-      ]
+  div
+    [ style
+        [ ("padding", "2em")
+        , ("font-size", "x-large")
+        , ("background", "#853")
+        , ("width", "100%")
+        , ("height", "100%")
+        , ("box-sizing", "border-box")
+        ]
+    ]
+    [ input
+        [ placeholder "Text to reverse"
+        , onInput ChangeText
+        , autofocus True
+        , style
+            [ ("font-size", "x-large")
+            , ("display", "block")
+            , ("width", "100%")
+            ]
+        ] []
+    , p [style [("color", "#4E8")]] [text (reverse crntText)]
+    ]
