@@ -7,7 +7,8 @@ end
 task default: :most_recent
 
 examples = {
-  'examples/Buttons.elm' => 'build/buttons.html',
+  'examples/Buttons.elm'    => 'build/buttons.html',
+  'examples/TextFields.elm' => 'build/text_fields.html',
 }
 
 examples.each do |infile, outfile|
