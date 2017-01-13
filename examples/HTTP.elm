@@ -1,10 +1,11 @@
+-- Read more about this program in the official Elm guide:
+-- https://guide.elm-lang.org/architecture/effects/http.html
+
 import Html exposing (..)
-import Html.App as Html
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Http
-import Json.Decode as Json
-import Task
+import Json.Decode as Decode
 
 
 
@@ -40,20 +41,19 @@ init topic =
 
 type Msg
   = MorePlease
-  | FetchSucceed String
-  | FetchFail Http.Error
+  | NewGif (Result Http.Error String)
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update action model =
-  case action of
+update msg model =
+  case msg of
     MorePlease ->
       (model, getRandomGif model.topic)
 
-    FetchSucceed newUrl ->
+    NewGif (Ok newUrl) ->
       (Model model.topic newUrl, Cmd.none)
 
-    FetchFail _ ->
+    NewGif (Err _) ->
       (model, Cmd.none)
 
 
@@ -88,11 +88,11 @@ getRandomGif : String -> Cmd Msg
 getRandomGif topic =
   let
     url =
-      "http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" ++ topic
+      "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" ++ topic
   in
-    Task.perform FetchFail FetchSucceed (Http.get decodeGifUrl url)
+    Http.send NewGif (Http.get url decodeGifUrl)
 
 
-decodeGifUrl : Json.Decoder String
+decodeGifUrl : Decode.Decoder String
 decodeGifUrl =
-  Json.at ["data", "image_url"] Json.string
+  Decode.at ["data", "image_url"] Decode.string
