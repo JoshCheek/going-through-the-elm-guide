@@ -1,2 +1,8 @@
+# Packages (like npm_modules)
 elm-stuff
+
+# Dir for compiling (eg holds intermediate files)
 build
+
+# I cloned the guide so I can make edits as I go through
+guide.elm-lang.org
