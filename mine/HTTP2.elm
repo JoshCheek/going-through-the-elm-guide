@@ -1,8 +1,8 @@
 module Main exposing (..)
 
-import Html exposing (Html, div, h2, button, img, text, button)
-import Html.Attributes exposing (src)
-import Html.Events exposing (onClick)
+import Html exposing (Html, div, h2, button, img, text, button, input)
+import Html.Attributes exposing (src, value, placeholder)
+import Html.Events exposing (onClick, onInput)
 import Http
 import Json.Decode
 
@@ -15,6 +15,7 @@ type Msg
   = NoMsg
   | GetRandomImage
   | ReplaceGif String
+  | SetTopic String
 
 main =
   Html.program
@@ -34,9 +35,10 @@ init topic =
 update : Msg -> ImageGenerator -> (ImageGenerator, Cmd Msg)
 update msg imgGen =
   case msg of
-    NoMsg -> (imgGen, Cmd.none)
-    GetRandomImage -> (imgGen, getRandomImage imgGen.topic)
+    NoMsg             -> (imgGen, Cmd.none)
+    GetRandomImage    -> (imgGen, getRandomImage imgGen.topic)
     ReplaceGif newUrl -> ({ imgGen | imageUrl = newUrl }, Cmd.none)
+    SetTopic newTopic -> ({ imgGen | topic = newTopic }, Cmd.none)
 
 getRandomImage : String -> Cmd Msg
 getRandomImage topic =
@@ -58,8 +60,13 @@ subscriptions imgGen =
 
 view : ImageGenerator -> Html Msg
 view imgGen =
-  div []
-    [ h2 [] [text imgGen.topic]
-    , button [ onClick GetRandomImage ] [ text "Get Random Image" ]
-    , img [src imgGen.imageUrl] []
-    ]
+  let
+    controls =
+      div []
+      [ input [placeholder "Topic", onInput SetTopic, value imgGen.topic] []
+      , button [ onClick GetRandomImage ] [ text "Get Random Image" ]
+      ]
+    image =
+      img [src imgGen.imageUrl] []
+  in
+    div [] [ controls, image ]
