@@ -15,6 +15,7 @@ examples = {
   'mine/RecreateTextFields1.elm' => 'build/recreate_text_fields1.html',
   'mine/RecreateTextFields2.elm' => 'build/recreate_text_fields2.html',
   'mine/Forms.elm'               => 'build/my_form.html',
+  'mine/HTTP2.elm'               => 'build/http2.html',
 }
 
 examples.each do |infile, outfile|
