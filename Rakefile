@@ -12,6 +12,7 @@ examples = {
   'examples/Random.elm'          => 'build/random.html',
   'examples/HTTP.elm'            => 'build/http.html',
   'examples/Time.elm'            => 'build/time.html',
+  'examples/Websocket.elm'       => 'build/websocket.html',
   'mine/RecreateTextFields1.elm' => 'build/recreate_text_fields1.html',
   'mine/RecreateTextFields2.elm' => 'build/recreate_text_fields2.html',
   'mine/Forms.elm'               => 'build/my_form.html',
